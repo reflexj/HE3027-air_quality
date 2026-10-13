@@ -1,0 +1,17 @@
+# Data files are too large for GitHub (limit 100 MB per file). Share them via OneDrive instead.
+data/
+*.dta
+*.pkl
+
+# Generated output (everyone can recreate it by running the notebook)
+output/
+
+# Python / Jupyter clutter
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Windows / OneDrive
+desktop.ini
+Thumbs.db
