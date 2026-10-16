@@ -1,9 +1,10 @@
-# Data files are too large for GitHub (limit 100 MB per file). Share them via OneDrive instead.
-data/
+# Data files are too large for GitHub (limit 100 MB per file).
+data/*
+!data/.gitkeep
 *.dta
 *.pkl
 
-# Generated output (everyone can recreate it by running the notebook)
+# Generated output (everyone can recreate it by running the code)
 output/
 
 # Python / Jupyter clutter
