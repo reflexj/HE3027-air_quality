@@ -129,7 +129,8 @@ def fe_ols(d, xvars, time_fe=False, area_fe=None, cluster=CLUSTER):
     se = np.sqrt(np.diag(V))
     r2 = 1 - (e @ e) / ((d["lnprice"] - d["lnprice"].mean()) ** 2).sum()
     res = pd.DataFrame({"coef": b, "se": se}, index=X.columns)
-    return {"res": res, "n": n, "r2": r2, "time_fe": time_fe, "area_fe": area_fe}
+    V = pd.DataFrame(V, index=X.columns, columns=X.columns)
+    return {"res": res, "V": V, "n": n, "k": k, "r2": r2, "time_fe": time_fe, "area_fe": area_fe}
 
 
 def two_fe_ols(d, xvars, fe1, fe2, cluster=CLUSTER):
