@@ -29,6 +29,7 @@ python basic_regressions.py
 python final_model.py
 python income_groups.py
 python income_small_area.py
+python pm10_smoothing.py
 ```
 
 - `data_exploration.py` creates `data_exploration.md` and the graphs in `figures/`.
@@ -36,3 +37,4 @@ python income_small_area.py
 - `final_model.py` creates `final_model.md` (controls step by step, final model M8, robustness checks).
 - `income_groups.py` creates `income_groups.md` and `figures/wtp_by_income_group.png` (functional form of income, WTP by low/middle/high income boroughs).
 - `income_small_area.py` creates `income_small_area.md` and one graph per income measure, `figures/wtp_by_income_{lsoa,msoa,borough}.png` (WTP by income group with LSOA and MSOA household income, data sources, all specifications).
+- `pm10_smoothing.py` creates `pm10_smoothing.md` and `figures/pm10_smoothing.png` (the 2011-2012 PM10 jump, smoothed PM10 measures and an IV with last year's PM10, with sources).
