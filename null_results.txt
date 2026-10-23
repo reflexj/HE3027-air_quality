@@ -97,6 +97,29 @@ Main roads beyond 50 m, and road noise below 65 dB
            places (65-69.9 dB: about -2.3%) are discounted. No gradient beyond.
   Source:  model_v2_roads.md
 
+PM10 x energy efficiency (EPC rating)
+  Test:    PM10 x average EPC score of the homes of the same type (flat /
+           house) in the postcode, per +10 points (about one band), in the v1
+           model (M8) + PM10 x house + PM10 x new build. Hypothesis: efficient
+           homes are less affected (positive interaction).
+  Result:  -0.028 pp (s.e. 0.065), p = 0.668; 95% CI [-0.156, +0.100].
+           Never significantly positive in 11 checks (efficiency-specific year
+           effects, borough-by-year FE, LSOA-by-year FE, borough clusters,
+           3-year average PM10, all homes in the postcode, 10+ certificates,
+           flats only, houses only).
+  Verdict: No support for the hypothesis. One band more efficiency removes at
+           most 47% of the PM10 discount (upper end of the CI). Caveat: postcode
+           average, not the home itself, and ratings from 2008-today.
+  Source:  model_v1_energy_efficiency.md
+
+PM10 x local park within 400 m
+  Test:    PM10 x public park or garden of 2 ha+ within 400 m of the postcode
+           (London Plan standard; OS Open Greenspace), v1 model (M8) + PM10 x
+           house + PM10 x new build.
+  Result:  +0.018 pp, p = 0.773. Not significant in any of 11 checks.
+  Verdict: Having a local park nearby does not change the PM10 discount.
+  Source:  model_v1_green_space.md
+
 
 2. TESTED, BUT DID NOT CHANGE THE PM10 ESTIMATE
 ------------------------------------------------
@@ -149,6 +172,35 @@ Education measured as share without qualifications
            interactions (needs p < 0.0125).
   Verdict: Weak hint only. Opposite sign to the "informed buyers" idea.
   Source:  model_v2.md
+
+Efficient postcodes (EPC average C or better) and the PM10 effect
+  Test:    PM10 x efficient (A-C) vs average (D) postcode, v1 model (M8)
+           + PM10 x house + PM10 x new build.
+  Result:  -0.184 pp, p = 0.068 (LARGER discount in efficient postcodes:
+           -0.35% vs -0.17%). Significant at 5% in 4 of 11 checks, but not
+           with borough clusters, 3-year average PM10, 10+ certificates per
+           postcode (+0.063), flats only or houses only.
+  Verdict: Weak hint only, opposite to the hypothesis. Efficient postcodes are
+           mostly new-build flats (87% flats, 30% new builds), so it may be
+           about these developments, not about efficiency.
+  Source:  model_v1_energy_efficiency.md
+
+Green space around the home and the PM10 effect
+  Test:    PM10 x share of green space within 500 m of the postcode (OS Open
+           Greenspace), per +10 pp, and by terciles of that share, v1 model
+           (M8) + PM10 x house + PM10 x new build. Two-sided (buffer vs
+           exposure idea).
+  Result:  Continuous: +0.080 pp, p = 0.062 (smaller discount where greener).
+           Terciles: PM10 effect -0.31% (least green third, < 4% green) vs
+           -0.15% / -0.13% (middle / greenest); high - low +0.179 pp,
+           p = 0.013 (passes Bonferroni for 3 measures). Significant at 5% in
+           10 of 14 checks (also with road / noise and distance-to-centre
+           controls), but NOT with LSOA-by-year FE (+0.164, p > 0.1), with a
+           250 m radius (0.000) or with public parks only (+0.075).
+  Verdict: Weak evidence for the buffer idea: homes with almost no green
+           space nearby carry a larger PM10 discount. Not robust enough to
+           claim; the local-park measure shows nothing.
+  Source:  model_v1_green_space.md
 
 PM10 main effect with borough-by-year fixed effects
   Test:    v1 model (M8) + borough-by-year FE.
