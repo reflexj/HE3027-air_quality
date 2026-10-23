@@ -1,0 +1,158 @@
+NULL RESULTS: WHAT WE TESTED THAT HAD NO (ROBUST) EFFECT
+==========================================================
+
+A running list of everything we tested that showed no effect, or no robust one.
+Add a new entry every time a test comes back empty.
+Numbers are copied from the .md file named in "Source"; rerun that script to reproduce them.
+The file name says which model the test was run on (model_v1* = v1, model_v2 = v2).
+
+PM10 effect = % change in price for +1 ug/m3 PM10.
+"pp" = percentage points of the PM10 effect (for interactions).
+Last updated: 2026-10-23
+
+
+1. NO EFFECT ON PRICES
+----------------------
+
+PM10 squared (non-linear PM10 effect)
+  Test:    PM10 + PM10^2 in the v2 model (3-year average PM10).
+  Result:  +0.008 pp per +1 ug/m3 of PM10 level, p = 0.263. Not significant in
+           any specification (joint model, yearly PM10, borough-by-year FE,
+           borough clusters). Effect -0.49% at P10 of PM10 vs -0.40% at P90:
+           if anything slightly smaller at high levels, not larger.
+  Verdict: No non-linearity. A linear PM10 term is enough.
+  Source:  model_v2.md
+
+Income level: WTP by income group
+  Test:    PM10 effect and WTP by low / middle / high income, with three
+           income measures (LSOA household income, MSOA household income,
+           borough pay), plus a continuous PM10 x ln(income) term.
+  Result:  Preferred measure (LSOA income): WTP GBP 640 / 580 / 640 per ug/m3,
+           joint test of equal WTP p = 0.977; equal % effects p = 0.293.
+           PM10 x ln(LSOA income) on its own: +0.037 (s.e. 0.125), p = 0.766.
+           Borough pay groups: no significant difference in separate
+           regressions (p = 0.196 MSOA / 0.459 borough clusters).
+  Verdict: No visible income gradient (but the confidence intervals are wide,
+           so a moderate gradient cannot be ruled out).
+  Caveat:  In the v2 joint model, together with PM10 x no qualifications,
+           PM10 x ln(LSOA income) is -0.580 pp (p = 0.022). The two are
+           correlated (-0.59), so this only appears conditional on education.
+  Source:  model_v1_income_groups.md, model_v1_income_small_area.md, model_v2.md
+
+Share of vulnerable residents (aged 0-15 or 65+)
+  Test:    PM10 x share aged 0-15 or 65+ in the LSOA (2011), per +10 pp.
+  Result:  -0.080 pp, p = 0.407. Sign flips with yearly PM10 (+0.098, p = 0.078).
+           Split: children +0.091 (p = 0.439), over-65s -0.266 (p = 0.101).
+  Verdict: No robust effect. Over-65s come closest.
+  Source:  model_v2.md
+
+Education measured as share with a degree
+  Test:    PM10 x share with Level 4+ qualifications, per +10 pp.
+  Result:  +0.013 pp, p = 0.799.
+  Verdict: No effect. (See "weak results" below for the no-qualifications share.)
+  Source:  model_v2.md
+
+NOx as a second pollutant
+  Test:    Add NOx to the v1 model (M8).
+  Result:  NOx coefficient +0.00% (s.e. 0.01); PM10 effect unchanged at -0.21%.
+  Verdict: NOx has no effect once PM10 is in; PM10 is not proxying for NOx.
+  Source:  model_v1.md
+
+Crime
+  Test:    Add log(1 + crimes in the LSOA-year) to the v1 model (M8), 2010-2014 only.
+  Result:  Crime coefficient -0.0039 (s.e. 0.0053), not significant;
+           PM10 effect -0.11% with and without crime.
+  Verdict: Crime has no effect within LSOAs and does not explain the PM10 effect.
+  Source:  model_v1.md
+
+PM10 x near a main road
+  Test:    PM10 x within 100 m of a motorway or A road (OS Open Roads), in the
+           v2 model with road-distance and noise bands as controls.
+  Result:  -0.010 pp, p = 0.923. Not significant in any check (yearly PM10,
+           borough-by-year FE, LSOA-by-year FE, borough clusters).
+  Verdict: The PM10 discount is no larger right next to main roads.
+  Source:  model_v2_roads.md
+
+PM10 x road noise
+  Test:    PM10 x noise of 65 dB or more (Defra road noise map 2012, Lden).
+  Result:  -0.182 pp, p = 0.319. Not significant in any check.
+  Verdict: The PM10 discount is no larger in noisy places.
+  Source:  model_v2_roads.md
+
+Main roads as the reason for the larger flat discount
+  Test:    PM10 effect for flats / houses near (<100 m) and far from a main
+           road; PM10 x house with and without road and noise controls.
+  Result:  Flats near -0.47%, flats far -0.51%; houses near -0.11%, houses
+           far -0.13%. Difference-in-differences +0.009 pp, p = 0.768.
+           PM10 x house +0.346 -> +0.367 pp with road and noise controls.
+  Verdict: Flats are more often near main roads (38% vs 15%), but that is NOT
+           why their PM10 discount is larger. Floor level is the next test.
+  Source:  model_v2_roads.md
+
+Main roads beyond 50 m, and road noise below 65 dB
+  Test:    Distance bands 50-100, 100-200, 200-400 m (base 400 m+) and noise
+           bands 55-59.9 and 60-64.9 dB (base below 55 dB), within LSOAs.
+  Result:  All close to zero and not significant (largest: 100-200 m +1.1%).
+  Verdict: Only homes right on a main road (0-50 m: -2.0% to -2.5%) and loud
+           places (65-69.9 dB: about -2.3%) are discounted. No gradient beyond.
+  Source:  model_v2_roads.md
+
+
+2. TESTED, BUT DID NOT CHANGE THE PM10 ESTIMATE
+------------------------------------------------
+(These may fit the data better, but they leave the PM10 effect where it was.)
+
+Non-linear distance controls (in the LSOA fixed-effects model)
+  Test:    Seven functional forms for the five distances (quadratic, log,
+           log-quadratic, one or all distances).
+  Result:  PM10 effect between -0.20% and -0.22% in all of them (linear: -0.21%).
+           R^2 gain at most +0.0022. They do matter in models WITHOUT LSOA FE.
+  Verdict: No change with LSOA FE. Kept as log-quadratic in v2 for fit.
+  Source:  model_v1_non-linear.md
+
+Functional form of income (borough pay)
+  Test:    No income, linear, log, quadratic, cubic pay.
+  Result:  PM10 effect -0.20% to -0.21% in every form.
+  Verdict: No change. Cubic kept in v2 for fit.
+  Source:  model_v1_income_groups.md
+
+Dropping the 2011-2012 PM10 jump
+  Test:    v1 model (M8) without 2011, and without 2011 and 2012.
+  Result:  -0.21% and -0.25% (vs -0.21%).
+  Verdict: Little change; year fixed effects absorb most of the jump.
+  Source:  model_v1_pm10_smoothing.md
+
+Last year's PM10 instead of this year's
+  Test:    PM10 of year t-1 in the v1 model (M8).
+  Result:  -0.20% (vs -0.20% for yearly PM10 on the same sample).
+  Verdict: No change. (Smoothing over 2-3 years DOES change it: -0.37%.)
+  Source:  model_v1_pm10_smoothing.md
+
+Distance to main roads and road noise as controls
+  Test:    Add distance bands to the nearest motorway / A road and road noise
+           bands to the v2 model.
+  Result:  PM10 effect -0.36% -> -0.36%. Roads and noise do lower prices
+           themselves (both jointly significant).
+  Verdict: No change. They capture local exposure the monitoring sites miss,
+           while PM10 is identified from changes over time.
+  Source:  model_v2_roads.md
+
+
+3. WEAK OR FRAGILE RESULTS (NOT ROBUST ENOUGH TO CLAIM)
+-------------------------------------------------------
+
+Education measured as share without qualifications
+  Test:    PM10 x share without qualifications, per +10 pp.
+  Result:  -0.150 pp, p = 0.047 (larger discount in less-educated areas).
+           Not significant with borough-by-year FE (p = 0.102), with yearly
+           PM10 (p = 0.301), or after the Bonferroni correction for four
+           interactions (needs p < 0.0125).
+  Verdict: Weak hint only. Opposite sign to the "informed buyers" idea.
+  Source:  model_v2.md
+
+PM10 main effect with borough-by-year fixed effects
+  Test:    v1 model (M8) + borough-by-year FE.
+  Result:  -0.07%, not significant (vs -0.21%).
+  Verdict: Either borough-wide shocks drive part of the PM10 effect, or these FE
+           absorb most of the PM10 variation. Cannot tell apart.
+  Source:  model_v1.md
